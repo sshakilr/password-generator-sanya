@@ -1,3 +1,13 @@
+prompt ("how many characters would you like your password to contain?");
+// if bwteen 10-65, then ok, if else, prompt again 
+prompt ("click ok to confirm including lowercase letters");
+prompt ("click ok to confirm including Uppercase letters");
+prompt ("click ok to confirm including Numeric letters");
+prompt ("click ok to confirm including special charcaters");
+
+
+
+
 // Array of special characters to be included in password
 var specialCharacters = [
   '@',
@@ -106,12 +116,41 @@ function generatePassword() {
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
-function generatePassword () {
-console.log('hey, you clicked the button')
-// 1.prompt user for passwork criteria
 
 
-return "Generated passworld will go here";
+
+
+function generatePassword() {
+  console.log('hey, you clicked the button')
+  // 1.prompt user for passwork criteria
+  //  a. password length bwteen 10-64
+  //  b. lowercase, uppercase, numeric, special characters
+
+
+
+
+  function getRandomLowerCasedCharacter() {
+    return String.fromCharCode(Math.floor(Math.random() * 26 + 97));
+  }
+
+  function getRandomUppercaseCharacter() {
+    return String.fromCharCode(Math.floor(Math.random() * 26 + 65)); 
+  }
+  
+  function getRandomNumber() {
+    return String.fromCharCode(Math.floor(Math.random() * 10 + 48)); 
+  }
+
+  function getRandomsymbol() {
+    const symbols=" !#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ";
+    return symbols[Math.floor(Math.random() * symbols.length)];
+  }
+  console.log(getRandomsymbol());
+
+
+
+
+  return "Generated passworld will go here";
 }
 
 // Write password to the #password input
