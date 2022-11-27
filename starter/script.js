@@ -1,9 +1,21 @@
-prompt ("how many characters would you like your password to contain?");
-// if bwteen 10-65, then ok, if else, prompt again 
-prompt ("click ok to confirm including lowercase letters");
-prompt ("click ok to confirm including Uppercase letters");
-prompt ("click ok to confirm including Numeric letters");
-prompt ("click ok to confirm including special charcaters");
+
+var passwordLength = Number(prompt("how many characters would you like your password to contain?"));
+passwordLength = parseInt(passwordLength);
+
+if (passwordLength < 10) {
+  alert ("password length must be between 10 and 64 characters");
+  // add return here
+}
+if (passwordLength > 64) {
+  alert ("password length must be between 10 and 64 characters");
+  //add return here
+
+}
+
+confirm ("click ok to confirm including lowercase letters");
+confirm ("click ok to confirm including Uppercase letters");
+confirm ("click ok to confirm including Numeric letters");
+confirm ("click ok to confirm including special charcaters");
 
 
 
