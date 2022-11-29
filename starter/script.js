@@ -1,25 +1,3 @@
-
-var passwordLength = Number(prompt("how many characters would you like your password to contain?"));
-passwordLength = parseInt(passwordLength);
-
-if (passwordLength < 10) {
-  alert ("password length must be between 10 and 64 characters");
-  // add return here
-}
-if (passwordLength > 64) {
-  alert ("password length must be between 10 and 64 characters");
-  //add return here
-
-}
-
-confirm ("click ok to confirm including lowercase letters");
-confirm ("click ok to confirm including Uppercase letters");
-confirm ("click ok to confirm including Numeric letters");
-confirm ("click ok to confirm including special charcaters");
-
-
-
-
 // Array of special characters to be included in password
 var specialCharacters = [
   '@',
@@ -48,7 +26,18 @@ var specialCharacters = [
 ];
 
 // Array of numeric characters to be included in password
-var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var numericCharacters = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9'
+];
 
 // Array of lowercase characters to be included in password
 var lowerCasedCharacters = [
@@ -113,61 +102,68 @@ var upperCasedCharacters = [
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-}
+  // Prompt for Length of Password 
+  var pwLength = (prompt("how many characters would you like your password to contain?\nMust be between 10 and 64"));
 
-// Function for getting a random element from an array
-function getRandom(arr) {
+  //In case input number is smaller than 10 OR larger than 64 OR user clicked "Cancel" OR input is not numbers 
+  while ((!(pwLength > 9)) || (!(pwLength < 65))) {
+    alert("The password length must be at least 10 characters but no more than 64 characters.");
+    var pwLength = (prompt("Please reenter the length of your password:\nBetween 10 and 64"));
+  }
 
-}
+  // Confirm for Lowercase Characters
+  var pwLowerCase = confirm("Click ok to confirm use of lowercase characters");
 
-// Function to generate password with user input
-function generatePassword() {
+  // Confirm for Uppercase Characters
+  var pwUpperCase = confirm("Click ok to confirm use of Uppercase characters");
 
+  // Confirm for Numeric Characters
+  var pwNumeric = confirm("Click ok to confirm use of numbers");
+
+  // Confirm for Special Characters
+  var pwSpecial = confirm("Click ok to confirm use of special characters");
+
+  // In case user clicks Cancel for all
+  while (pwLowerCase === false && pwUpperCase === false && pwNumeric === false && pwSpecial === false) {
+    alert("Your password must need at least one criteria from below:\nLowercase Characters\nUppercase Characters\nNumeric Characters\nSpecial Characters");
+    var pwLowerCase = confirm("Does your password needs lowercase characters?\n[OK] = Yes please.\n[Cancel] = No thanks.");
+    var pwUpperCase = confirm("Does your password needs UPPERCASE characters?\n[OK] = Yes please.\n[Cancel] = No thanks.");
+    var pwNumeric = confirm("Does your password needs numeric characters?\n[OK] = Yes please.\n[Cancel] = No thanks.");
+    var pwSpecial = confirm("Does your password needs special characters?\n[OK] = Yes please.\n[Cancel] = No thanks.");
+  }
+
+  var pwContent = [];
+
+  if (pwLowerCase) {
+    pwContent = pwContent.concat(lowerCasedCharacters)
+  }
+
+  if (pwUpperCase) {
+    pwContent = pwContent.concat(upperCasedCharacters)
+  }
+
+  if (pwNumeric) {
+    pwContent = pwContent.concat(numericCharacters)
+  }
+
+  if (pwSpecial) {
+    pwContent = pwContent.concat(specialCharacters)
+  }
+
+  var newPassword = "";
+
+  for (var i = 0; i < pwLength; i++) {
+    newPassword = newPassword + pwContent[Math.floor(Math.random() * pwContent.length)];
+  }
+  return newPassword;
 }
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
-
-
-
-
-function generatePassword() {
-  console.log('hey, you clicked the button')
-  // 1.prompt user for passwork criteria
-  //  a. password length bwteen 10-64
-  //  b. lowercase, uppercase, numeric, special characters
-
-
-
-
-  function getRandomLowerCasedCharacter() {
-    return String.fromCharCode(Math.floor(Math.random() * 26 + 97));
-  }
-
-  function getRandomUppercaseCharacter() {
-    return String.fromCharCode(Math.floor(Math.random() * 26 + 65)); 
-  }
-  
-  function getRandomNumber() {
-    return String.fromCharCode(Math.floor(Math.random() * 10 + 48)); 
-  }
-
-  function getRandomsymbol() {
-    const symbols=" !#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ";
-    return symbols[Math.floor(Math.random() * symbols.length)];
-  }
-  console.log(getRandomsymbol());
-
-
-
-
-  return "Generated passworld will go here";
-}
-
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = getPasswordOptions();
   var passwordText = document.querySelector('#password');
 
   passwordText.value = password;
@@ -175,4 +171,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
-
